@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using static UtaFormatix.data;
+using static UtaFormatix.Data;
 
 namespace UtaFormatix
 {
-    public class lyric
+    public class Lyric
     {
-        public lyric(data data, bool DoAnalyze)
+        public Lyric(Data data, bool DoAnalyze)
         {
             this.data = data;
             if (DoAnalyze)
@@ -13,7 +13,7 @@ namespace UtaFormatix
                 LyricTypeAnalyze();
             }
         }
-        data data;
+        Data data;
         public LyricType AnalyzedType = LyricType.None;
         void LyricTypeAnalyze()
         {

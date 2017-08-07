@@ -10,8 +10,8 @@ namespace UtaFormatix
     public partial class MainWindow : Window
     {
         string version = "ver1.51";
-        data maindata;
-        data exportingdata;
+        Data maindata;
+        Data exportingdata;
         bool Imported = false;
         public MainWindow()
         {
@@ -23,8 +23,8 @@ namespace UtaFormatix
         {
             if (Imported)
             {
-                exportingdata = new data(maindata);
-                if(!transformlyrics(data.UtaFormat.vsq4))
+                exportingdata = new Data(maindata);
+                if(!transformlyrics(Data.UtaFormat.vsq4))
                 {
                     return;
                 }
@@ -51,8 +51,8 @@ namespace UtaFormatix
         {
             if (Imported)
             {
-                exportingdata = new data(maindata);
-                if (!transformlyrics(data.UtaFormat.ccs))
+                exportingdata = new Data(maindata);
+                if (!transformlyrics(Data.UtaFormat.ccs))
                 {
                     return;
                 }
@@ -79,8 +79,8 @@ namespace UtaFormatix
         {
             if (Imported)
             {
-                exportingdata = new data(maindata);
-                if (!transformlyrics(data.UtaFormat.ust))
+                exportingdata = new Data(maindata);
+                if (!transformlyrics(Data.UtaFormat.ust))
                 {
                     return;
                 }
@@ -116,7 +116,7 @@ namespace UtaFormatix
             }
             List<string> fileNames = new List<string>();
             fileNames.AddRange(openFileDialog.FileNames);
-            maindata = new data();
+            maindata = new Data();
             Imported = maindata.Import(fileNames);
         }
 
@@ -194,30 +194,30 @@ namespace UtaFormatix
             {
                 fileNames.Add(dropfile.ToString());
             }
-            maindata = new data();
+            maindata = new Data();
             Imported = maindata.Import(fileNames);
             Droping.Visibility = Visibility.Hidden;
         }
 
-        bool transformlyrics(data.UtaFormat toFormat)
+        bool transformlyrics(Data.UtaFormat toFormat)
         {
             ChangeLyrics changelyrics = new ChangeLyrics();
             switch (maindata.lyric.AnalyzedType)
             {
-                case lyric.LyricType.None:
+                case Lyric.LyricType.None:
                     System.Windows.MessageBox.Show("The type of the lyrics is not detected, please select the correct type by yourself.", "Lyrics Transformation");
                     changelyrics.radioButton_from1.IsChecked = true;
                     break;
-                case lyric.LyricType.Romaji_Tandoku:
+                case Lyric.LyricType.Romaji_Tandoku:
                     changelyrics.radioButton_from1.IsChecked = true;
                     break;
-                case lyric.LyricType.Romaji_Renzoku:
+                case Lyric.LyricType.Romaji_Renzoku:
                     changelyrics.radioButton_from2.IsChecked = true;
                     break;
-                case lyric.LyricType.Kana_Tandoku:
+                case Lyric.LyricType.Kana_Tandoku:
                     changelyrics.radioButton_from3.IsChecked = true;
                     break;
-                case lyric.LyricType.Kana_Renzoku:
+                case Lyric.LyricType.Kana_Renzoku:
                     changelyrics.radioButton_from4.IsChecked = true;
                     break;
                 default:
@@ -226,12 +226,12 @@ namespace UtaFormatix
             changelyrics.radioButton_to3.IsChecked = true;
             switch (toFormat)
             {
-                case data.UtaFormat.vsq4:
+                case Data.UtaFormat.vsq4:
                     changelyrics.radioButton_to2.Visibility = Visibility.Hidden;
                     changelyrics.radioButton_to4.Visibility = Visibility.Hidden;
                     changelyrics.radioButton_to3.Margin = changelyrics.radioButton_to2.Margin;
                     break;
-                case data.UtaFormat.ccs:
+                case Data.UtaFormat.ccs:
                     changelyrics.radioButton_to1.Visibility = Visibility.Hidden;
                     changelyrics.radioButton_to2.Visibility = Visibility.Hidden;
                     changelyrics.radioButton_to4.Visibility = Visibility.Hidden;

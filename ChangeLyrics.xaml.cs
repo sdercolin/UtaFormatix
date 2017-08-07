@@ -22,8 +22,8 @@ namespace UtaFormatix
         {
             InitializeComponent();
         }
-        public lyric.LyricType fromType = lyric.LyricType.None;
-        public lyric.LyricType ToType = lyric.LyricType.None;
+        public Lyric.LyricType fromType = Lyric.LyricType.None;
+        public Lyric.LyricType ToType = Lyric.LyricType.None;
 
         private void button_cancel_Click(object sender, RoutedEventArgs e)
         {
@@ -39,35 +39,35 @@ namespace UtaFormatix
                 {
                     if (radioButton_from1.IsChecked == true)
                     {
-                        fromType = lyric.LyricType.Romaji_Tandoku;
+                        fromType = Lyric.LyricType.Romaji_Tandoku;
                     }
                     else if (radioButton_from2.IsChecked == true)
                     {
-                        fromType = lyric.LyricType.Romaji_Renzoku;
+                        fromType = Lyric.LyricType.Romaji_Renzoku;
                     }
                     else if (radioButton_from3.IsChecked == true)
                     {
-                        fromType = lyric.LyricType.Kana_Tandoku;
+                        fromType = Lyric.LyricType.Kana_Tandoku;
                     }
                     else if (radioButton_from4.IsChecked == true)
                     {
-                        fromType = lyric.LyricType.Kana_Renzoku;
+                        fromType = Lyric.LyricType.Kana_Renzoku;
                     }
                     if (radioButton_to1.IsChecked == true)
                     {
-                        ToType = lyric.LyricType.Romaji_Tandoku;
+                        ToType = Lyric.LyricType.Romaji_Tandoku;
                     }
                     else if (radioButton_to2.IsChecked == true)
                     {
-                        ToType = lyric.LyricType.Romaji_Renzoku;
+                        ToType = Lyric.LyricType.Romaji_Renzoku;
                     }
                     else if (radioButton_to3.IsChecked == true)
                     {
-                        ToType = lyric.LyricType.Kana_Tandoku;
+                        ToType = Lyric.LyricType.Kana_Tandoku;
                     }
                     else if (radioButton_to4.IsChecked == true)
                     {
-                        ToType = lyric.LyricType.Kana_Renzoku;
+                        ToType = Lyric.LyricType.Kana_Renzoku;
                     }
                     DialogResult = true;
                     Close();

@@ -7,10 +7,10 @@ using System.Windows.Forms;
 
 namespace UtaFormatix
 {
-    public class data
+    public class Data
     {
-        public data() { }
-        public data(data data)
+        public Data() { }
+        public Data(Data data)
         {
             ProjectName = data.ProjectName;
             files = data.files;
@@ -30,7 +30,7 @@ namespace UtaFormatix
                 tempoList.Add(new tempo(tempo));
             }
             PreMeasure = data.PreMeasure;
-            lyric = new lyric(this, false);
+            lyric = new Lyric(this, false);
         }
         public string ProjectName;
         public List<string> files;
@@ -38,7 +38,7 @@ namespace UtaFormatix
         public List<timeSig> timeSigList;
         public List<tempo> tempoList;
         public int PreMeasure = 0;
-        public lyric lyric;
+        public Lyric lyric;
         public bool Import(List<string> filenames)
         {
             files = new List<string>();
@@ -195,7 +195,7 @@ namespace UtaFormatix
             }
             if (TrackList.Count > 0)
             {
-                lyric = new lyric(this, true);
+                lyric = new Lyric(this, true);
                 return true;
             }
             else
@@ -321,7 +321,7 @@ namespace UtaFormatix
             }
             if (TrackList.Count > 0)
             {
-                lyric = new lyric(this, true);
+                lyric = new Lyric(this, true);
                 return true;
             }
             else
@@ -465,7 +465,7 @@ namespace UtaFormatix
                 TrackList.Add(newTrack);
                 trackcount++;
             }
-            lyric = new lyric(this, true);
+            lyric = new Lyric(this, true);
             return true;
         }
         public bool ImportCcs(List<string> filenames)
@@ -558,7 +558,7 @@ namespace UtaFormatix
                 MessageBox.Show("The Ccs is invalid or empty.", "Import");
                 return false;
             }
-            lyric = new lyric(this, true);
+            lyric = new Lyric(this, true);
             return true;
         }
         public void ExportUst(string filepath)
