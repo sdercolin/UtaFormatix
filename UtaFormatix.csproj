@@ -68,6 +68,7 @@
     <Compile Include="TimeSig.cs" />
     <Compile Include="Track.cs" />
     <Compile Include="UtaFormat.cs" />
+    <Compile Include="Vpr.cs" />
     <Page Include="ChangeLyrics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
