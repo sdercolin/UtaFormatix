@@ -59,6 +59,10 @@ namespace UtaFormatix
             {
                 format = UtaFormat.Ccs;
             }
+            else if (extension == ".vpr")
+            {
+                format = UtaFormat.Vpr;
+            }
             else
             {
                 MessageBox.Show("The format of this file is not supported.", "Import");
@@ -81,6 +85,9 @@ namespace UtaFormatix
 
                 case UtaFormat.Ccs:
                     return ImportCcs(Files);
+
+                case UtaFormat.Vpr:
+                    return ImportVpr(Files);
             }
             return false;
         }
@@ -257,7 +264,7 @@ namespace UtaFormatix
                 {
                     if (root.ChildNodes[i].Name == "vsTrack")
                     {
-                        int NoteNum = 0;
+                        int noteNum = 0;
                         var thisTrack = root.ChildNodes[i];
                         var newTrack = new Track();
                         newTrack.TrackNum = trackNum;
@@ -278,7 +285,7 @@ namespace UtaFormatix
                                     if (thisPart.ChildNodes[k].Name == "note")
                                     {
                                         var newNote = new Note();
-                                        newNote.NoteNum = NoteNum;
+                                        newNote.NoteNum = noteNum;
                                         var thisNote = thisPart.ChildNodes[k];
                                         var inThisNote = thisNote.FirstChild;
                                         newNote.NoteTimeOn = Convert.ToInt32(inThisNote.FirstChild.Value) + partStartTime;
@@ -289,7 +296,7 @@ namespace UtaFormatix
                                         inThisNote = inThisNote.NextSibling;
                                         inThisNote = inThisNote.NextSibling;
                                         newNote.NoteLyric = inThisNote.FirstChild.Value;
-                                        NoteNum++;
+                                        noteNum++;
                                         newTrack.NoteList.Add(newNote);
                                     }
                                 }
@@ -310,6 +317,104 @@ namespace UtaFormatix
             else
             {
                 MessageBox.Show("The vsqx is invalid or empty.", "Import");
+                return false;
+            }
+        }
+
+        public bool ImportVpr(List<string> fileNames)
+        {
+            if (fileNames.Count != 1)
+            {
+                MessageBox.Show("Cannot Import more than one vpr files.", "Import");
+                return false;
+            }
+
+            var tempDirectory = "temp/";
+            if (Directory.Exists(tempDirectory))
+            {
+                Directory.Delete(tempDirectory, true);
+            }
+            var directory = Directory.CreateDirectory(tempDirectory);
+            var copiedVprTempFileName = tempDirectory + Path.GetFileNameWithoutExtension(fileNames.First()) + ".zip";
+            File.Copy(fileNames.First(), copiedVprTempFileName);
+            var unzippedDirectory = ZipUtil.Unzip(copiedVprTempFileName);
+            var jsonFileName = Path.Combine(unzippedDirectory, "Project", "sequence.json");
+            var vpr = Newtonsoft.Json.JsonConvert.DeserializeObject<Vpr>(File.ReadAllText(jsonFileName));
+
+            ProjectName = vpr.Title;
+            PreMeasure = 1;
+            TimeSigList = vpr.MasterTrack.TimeSig.Events.Select(it => new TimeSig
+            {
+                PosMes = it.Bar + 1,
+                Nume = it.Numer,
+                Denomi = it.Denom
+            }).ToList();
+            TempoList = vpr.MasterTrack.Tempo.Events.Select(it => new Tempo
+            {
+                PosTick = Constant.TickNumberForOneBar + it.Pos,
+                BpmTimes100 = it.Value
+            }).ToList();
+            TrackList = new List<Track>();
+
+            for (int i = 0; i < vpr.Tracks.Count; i++)
+            {
+                var vprTrack = vpr.Tracks[i];
+                var track = new Track
+                {
+                    TrackName = vprTrack.Name,
+                    TrackNum = i
+                };
+                track.NoteList = new List<Note>();
+                var noteNum = 0;
+                foreach (var vprPart in vprTrack.Parts)
+                {
+                    var partStartTime = vprPart.Pos;
+                    foreach (var vprNote in vprPart.Notes)
+                    {
+                        track.NoteList.Add(new Note
+                        {
+                            NoteTimeOn = Constant.TickNumberForOneBar + partStartTime + vprNote.Pos,
+                            NoteTimeOff = Constant.TickNumberForOneBar + partStartTime + vprNote.Pos + vprNote.Duration,
+                            NoteNum = noteNum++,
+                            NoteKey = vprNote.Number,
+                            NoteLyric = vprNote.Lyric
+                        });
+                    }
+                }
+
+                if (track.NoteList.Count == 0)
+                {
+                    continue;
+                }
+                for (int j = 0; j < track.NoteList.Count - 1; j++)
+                {
+                    var note = track.NoteList[j];
+                    var nextNote = track.NoteList[j + 1];
+                    if (note.NoteTimeOff > nextNote.NoteTimeOn)
+                    {
+                        note.NoteTimeOff = nextNote.NoteTimeOn;
+                    }
+                }
+
+                if (track.NoteList.Count > 0)
+                {
+                    TrackList.Add(track);
+                }
+            }
+
+            if (Directory.Exists(tempDirectory))
+            {
+                Directory.Delete(tempDirectory, true);
+            }
+
+            if (TrackList.Count > 0)
+            {
+                Lyric = new Lyric(this, true);
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("The vpr is invalid or empty.", "Import");
                 return false;
             }
         }
@@ -365,7 +470,6 @@ namespace UtaFormatix
                         newTrack.NoteList = new List<Note>();
                         var newNote = new Note();
                         newNote.NoteNum = noteNum;
-                        newNote.NoteIdforUTAU = buffer.Substring(2, 4);
                         bool isNoteValid = false;
                         bool tempoTempFlag = false;
                         for (buffer = reader.ReadLine(); buffer != "[#TRACKEND]" && buffer != null; buffer = reader.ReadLine())
@@ -379,7 +483,6 @@ namespace UtaFormatix
                                 }
                                 newNote = new Note();
                                 newNote.NoteNum = noteNum;
-                                newNote.NoteIdforUTAU = buffer.Substring(2, 4);
                                 isNoteValid = false;
                             }
                             if (buffer.Contains("Length="))

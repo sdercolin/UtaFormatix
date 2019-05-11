@@ -110,7 +110,7 @@ namespace UtaFormatix
             var openFileDialog = new OpenFileDialog
             {
                 Title = "Import",
-                Filter = "VOCALOID Project|*.vsqx|UTAU Project|*.ust|CeVIO Project|*.ccs",
+                Filter = "VOCALOID5 Project|*.vpr|VOCALOID Project|*.vsqx|UTAU Project|*.ust|CeVIO Project|*.ccs",
                 FileName = string.Empty,
                 FilterIndex = 1,
                 RestoreDirectory = true,

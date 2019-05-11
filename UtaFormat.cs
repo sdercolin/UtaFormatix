@@ -9,6 +9,7 @@
             Vsq4, //VOCALOID4
             Ust, //UTAU
             Ccs, //CeVIO
+            Vpr, //VOCALOID5
             None
         }
     }
