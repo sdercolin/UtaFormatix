@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>resoures\H 256.ico</ApplicationIcon>
+    <ApplicationIcon>resources\H 256.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -112,26 +112,26 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resoures\cevio.png" />
-    <Resource Include="resoures\H 256.ico" />
-    <Resource Include="resoures\vocaloid.png" />
+    <Resource Include="resources\cevio.png" />
+    <Resource Include="resources\H 256.ico" />
+    <Resource Include="resources\vocaloid.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resoures\import.png" />
-    <Resource Include="resoures\import2.png" />
-    <Resource Include="resoures\utau.png" />
+    <Resource Include="resources\import.png" />
+    <Resource Include="resources\import2.png" />
+    <Resource Include="resources\utau.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resoures\export.png" />
+    <Resource Include="resources\export.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resoures\title.png" />
+    <Resource Include="resources\title.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resoures\import3.png" />
+    <Resource Include="resources\import3.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resoures\white_cover.png" />
+    <Resource Include="resources\white_cover.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
