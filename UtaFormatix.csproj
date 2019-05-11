@@ -61,7 +61,13 @@
     <Compile Include="ChangeLyrics.xaml.cs">
       <DependentUpon>ChangeLyrics.xaml</DependentUpon>
     </Compile>
-    <Compile Include="lyric.cs" />
+    <Compile Include="Constant.cs" />
+    <Compile Include="Lyric.cs" />
+    <Compile Include="Note.cs" />
+    <Compile Include="Tempo.cs" />
+    <Compile Include="TimeSig.cs" />
+    <Compile Include="Track.cs" />
+    <Compile Include="UtaFormat.cs" />
     <Page Include="ChangeLyrics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -74,7 +80,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="data.cs" />
+    <Compile Include="Data.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

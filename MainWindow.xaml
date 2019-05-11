@@ -10,23 +10,22 @@
         <Image x:Name="image" HorizontalAlignment="Left" Height="148" Margin="44,84,-49,-65.071" VerticalAlignment="Top" Width="579" Source="title.png" Opacity="0.04" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-2.765"/>
-                    <TranslateTransform/>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform Angle="-2.765" />
+                    <TranslateTransform />
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="BtnExportCcs" HorizontalAlignment="Left" Height="102" Margin="427,30,0,0" VerticalAlignment="Top" Width="102" Source="cevio.png" Cursor="Hand" MouseEnter="BtnExportCcs_MouseEnter"/>
-        <Image x:Name="BtnExportUst" HorizontalAlignment="Left" Height="102" Margin="297,30,0,0" VerticalAlignment="Top" Width="102" Source="utau.png" Cursor="Hand" MouseEnter="BtnExportUst_MouseEnter"/>
-        <Image x:Name="BtnExportVsqx" HorizontalAlignment="Left" Height="102" Margin="169,30,0,0" VerticalAlignment="Top" Width="102" Source="vocaloid.png" Cursor="Hand" MouseEnter="BtnExportVsqx_MouseEnter"/>
-        <Image x:Name="BtnImport" HorizontalAlignment="Left" Height="102" Margin="38,30,0,0" VerticalAlignment="Top" Width="102" Source="import.png" Cursor="Hand" MouseEnter="BtnImport_MouseEnter"/>
-        <Image x:Name="BtnImport_Cover" HorizontalAlignment="Left" Height="102" Margin="38,30,0,0" VerticalAlignment="Top" Width="102" Source="import3.png" MouseUp="Import" Cursor="Hand" MouseLeave="BtnImport_Cover_MouseLeave" Visibility="Hidden"/>
-        <Image x:Name="BtnExportVsqx_Cover" HorizontalAlignment="Left" Height="102" Margin="169,30,0,0" VerticalAlignment="Top" Width="102" Source="export.png" MouseUp="ExportVsq4" Cursor="Hand" MouseLeave="BtnExportVsqx_Cover_MouseLeave" Visibility="Hidden"/>
-        <Image x:Name="BtnExportUst_Cover" HorizontalAlignment="Left" Height="102" Margin="297,30,0,0" VerticalAlignment="Top" Width="102" Source="export.png" MouseUp="ExportUst" Cursor="Hand"  MouseLeave="BtnExportUst_Cover_MouseLeave" Visibility="Hidden"/>
-        <Image x:Name="BtnExportCcs_Cover" HorizontalAlignment="Left" Height="102" Margin="427,30,0,0" VerticalAlignment="Top" Width="102" Source="export.png" MouseUp="ExportCcs" Cursor="Hand" MouseLeave="BtnExportCcs_Cover_MouseLeave" Visibility="Hidden"/>
-        <Label x:Name="label" Content="Label" HorizontalAlignment="Right" Margin="0,5,5,0" VerticalAlignment="Top" Foreground="#FF767676"/>
-        <Image x:Name="Droping" HorizontalAlignment="Left" Height="198" Margin="0,-14,-6,-17.071" VerticalAlignment="Top" Width="580" Source="white_cover.png" Cursor="Hand" Opacity="0.9" Stretch="None" Visibility="Hidden"/>
-        
+        <Image x:Name="BtnExportCcs" HorizontalAlignment="Left" Height="102" Margin="427,30,0,0" VerticalAlignment="Top" Width="102" Source="cevio.png" Cursor="Hand" MouseEnter="BtnExportCcs_MouseEnter" />
+        <Image x:Name="BtnExportUst" HorizontalAlignment="Left" Height="102" Margin="297,30,0,0" VerticalAlignment="Top" Width="102" Source="utau.png" Cursor="Hand" MouseEnter="BtnExportUst_MouseEnter" />
+        <Image x:Name="BtnExportVsqx" HorizontalAlignment="Left" Height="102" Margin="169,30,0,0" VerticalAlignment="Top" Width="102" Source="vocaloid.png" Cursor="Hand" MouseEnter="BtnExportVsqx_MouseEnter" />
+        <Image x:Name="BtnImport" HorizontalAlignment="Left" Height="102" Margin="38,30,0,0" VerticalAlignment="Top" Width="102" Source="import.png" Cursor="Hand" MouseEnter="BtnImport_MouseEnter" />
+        <Image x:Name="BtnImport_Cover" HorizontalAlignment="Left" Height="102" Margin="38,30,0,0" VerticalAlignment="Top" Width="102" Source="import3.png" MouseUp="Import" Cursor="Hand" MouseLeave="BtnImport_Cover_MouseLeave" Visibility="Hidden" />
+        <Image x:Name="BtnExportVsqx_Cover" HorizontalAlignment="Left" Height="102" Margin="169,30,0,0" VerticalAlignment="Top" Width="102" Source="export.png" MouseUp="ExportVsq4" Cursor="Hand" MouseLeave="BtnExportVsqx_Cover_MouseLeave" Visibility="Hidden" />
+        <Image x:Name="BtnExportUst_Cover" HorizontalAlignment="Left" Height="102" Margin="297,30,0,0" VerticalAlignment="Top" Width="102" Source="export.png" MouseUp="ExportUst" Cursor="Hand"  MouseLeave="BtnExportUst_Cover_MouseLeave" Visibility="Hidden" />
+        <Image x:Name="BtnExportCcs_Cover" HorizontalAlignment="Left" Height="102" Margin="427,30,0,0" VerticalAlignment="Top" Width="102" Source="export.png" MouseUp="ExportCcs" Cursor="Hand" MouseLeave="BtnExportCcs_Cover_MouseLeave" Visibility="Hidden" />
+        <Label x:Name="label" Content="Label" HorizontalAlignment="Right" Margin="0,5,5,0" VerticalAlignment="Top" Foreground="#FF767676" />
+        <Image x:Name="Droping" HorizontalAlignment="Left" Height="198" Margin="0,-14,-6,-17.071" VerticalAlignment="Top" Width="580" Source="white_cover.png" Cursor="Hand" Opacity="0.9" Stretch="None" Visibility="Hidden" />
     </Grid>
 </Window>
