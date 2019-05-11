@@ -10,9 +10,9 @@ namespace UtaFormatix
     public partial class MainWindow : Window
     {
         private string version = "ver1.51";
-        private Data maindata;
-        private Data exportingdata;
-        private bool Imported = false;
+        private Data mainData;
+        private Data exportingData;
+        private bool imported = false;
 
         public MainWindow()
         {
@@ -22,25 +22,27 @@ namespace UtaFormatix
 
         private void ExportVsq4(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (Imported)
+            if (imported)
             {
-                exportingdata = new Data(maindata);
-                if (!transformlyrics(Data.UtaFormat.Vsq4))
+                exportingData = new Data(mainData);
+                if (!transformLyrics(Data.UtaFormat.Vsq4))
                 {
                     return;
                 }
-                var saveFileDialog = new SaveFileDialog();
-                saveFileDialog.Title = "Export";
-                saveFileDialog.Filter = "VOCALOID Project|*.vsqx";
-                saveFileDialog.FileName = exportingdata.ProjectName;
-                saveFileDialog.FilterIndex = 1;
-                saveFileDialog.RestoreDirectory = true;
+                var saveFileDialog = new SaveFileDialog
+                {
+                    Title = "Export",
+                    Filter = "VOCALOID Project|*.vsqx",
+                    FileName = exportingData.ProjectName,
+                    FilterIndex = 1,
+                    RestoreDirectory = true
+                };
                 if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     string filename = saveFileDialog.FileName;
-                    exportingdata.ExportVsq4(filename);
+                    exportingData.ExportVsq4(filename);
                 }
-                exportingdata = null;
+                exportingData = null;
             }
             else
             {
@@ -50,25 +52,27 @@ namespace UtaFormatix
 
         private void ExportCcs(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (Imported)
+            if (imported)
             {
-                exportingdata = new Data(maindata);
-                if (!transformlyrics(Data.UtaFormat.Ccs))
+                exportingData = new Data(mainData);
+                if (!transformLyrics(Data.UtaFormat.Ccs))
                 {
                     return;
                 }
-                var saveFileDialog = new SaveFileDialog();
-                saveFileDialog.Title = "Export";
-                saveFileDialog.Filter = "CeVIO Project|*.ccs";
-                saveFileDialog.FileName = exportingdata.ProjectName;
-                saveFileDialog.FilterIndex = 1;
-                saveFileDialog.RestoreDirectory = true;
+                var saveFileDialog = new SaveFileDialog
+                {
+                    Title = "Export",
+                    Filter = "CeVIO Project|*.ccs",
+                    FileName = exportingData.ProjectName,
+                    FilterIndex = 1,
+                    RestoreDirectory = true
+                };
                 if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    string filename = saveFileDialog.FileName;
-                    exportingdata.ExportCcs(filename);
+                    string fileName = saveFileDialog.FileName;
+                    exportingData.ExportCcs(fileName);
                 }
-                exportingdata = null;
+                exportingData = null;
             }
             else
             {
@@ -78,22 +82,22 @@ namespace UtaFormatix
 
         private void ExportUst(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (Imported)
+            if (imported)
             {
-                exportingdata = new Data(maindata);
-                if (!transformlyrics(Data.UtaFormat.Ust))
+                exportingData = new Data(mainData);
+                if (!transformLyrics(Data.UtaFormat.Ust))
                 {
                     return;
                 }
                 var selectFolder = new FolderBrowserDialog();
                 selectFolder.Description = "Please choose a folder to export ust(s):";
-                selectFolder.SelectedPath = exportingdata.Files[0].Replace(System.IO.Path.GetFileName(exportingdata.Files[0]), "");
+                selectFolder.SelectedPath = exportingData.Files[0].Replace(System.IO.Path.GetFileName(exportingData.Files[0]), "");
                 if (selectFolder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     string foldpath = selectFolder.SelectedPath;
-                    exportingdata.ExportUst(foldpath);
+                    exportingData.ExportUst(foldpath);
                 }
-                exportingdata = null;
+                exportingData = null;
             }
             else
             {
@@ -103,13 +107,15 @@ namespace UtaFormatix
 
         private void Import(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "Import";
-            openFileDialog.Filter = "VOCALOID Project|*.vsqx|UTAU Project|*.ust|CeVIO Project|*.ccs";
-            openFileDialog.FileName = string.Empty;
-            openFileDialog.FilterIndex = 1;
-            openFileDialog.RestoreDirectory = true;
-            openFileDialog.Multiselect = true;
+            var openFileDialog = new OpenFileDialog
+            {
+                Title = "Import",
+                Filter = "VOCALOID Project|*.vsqx|UTAU Project|*.ust|CeVIO Project|*.ccs",
+                FileName = string.Empty,
+                FilterIndex = 1,
+                RestoreDirectory = true,
+                Multiselect = true
+            };
             var result = openFileDialog.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.Cancel)
             {
@@ -117,8 +123,8 @@ namespace UtaFormatix
             }
             var fileNames = new List<string>();
             fileNames.AddRange(openFileDialog.FileNames);
-            maindata = new Data();
-            Imported = maindata.Import(fileNames);
+            mainData = new Data();
+            imported = mainData.Import(fileNames);
         }
 
         private void BtnImport_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -195,63 +201,63 @@ namespace UtaFormatix
             {
                 fileNames.Add(dropfile.ToString());
             }
-            maindata = new Data();
-            Imported = maindata.Import(fileNames);
+            mainData = new Data();
+            imported = mainData.Import(fileNames);
             Droping.Visibility = Visibility.Hidden;
         }
 
-        private bool transformlyrics(Data.UtaFormat toFormat)
+        private bool transformLyrics(Data.UtaFormat toFormat)
         {
-            var changelyrics = new ChangeLyrics();
-            switch (maindata.Lyric.TypeAnalysed)
+            var changeLyrics = new ChangeLyrics();
+            switch (mainData.Lyric.TypeAnalysed)
             {
                 case Lyric.LyricType.None:
                     System.Windows.MessageBox.Show("The type of the lyrics is not detected, please select the correct type by yourself.", "Lyrics Transformation");
-                    changelyrics.radioButton_from1.IsChecked = true;
+                    changeLyrics.radioButton_from1.IsChecked = true;
                     break;
 
                 case Lyric.LyricType.RomajiTandoku:
-                    changelyrics.radioButton_from1.IsChecked = true;
+                    changeLyrics.radioButton_from1.IsChecked = true;
                     break;
 
                 case Lyric.LyricType.RomajiRenzoku:
-                    changelyrics.radioButton_from2.IsChecked = true;
+                    changeLyrics.radioButton_from2.IsChecked = true;
                     break;
 
                 case Lyric.LyricType.KanaTandoku:
-                    changelyrics.radioButton_from3.IsChecked = true;
+                    changeLyrics.radioButton_from3.IsChecked = true;
                     break;
 
                 case Lyric.LyricType.KanaRenzoku:
-                    changelyrics.radioButton_from4.IsChecked = true;
+                    changeLyrics.radioButton_from4.IsChecked = true;
                     break;
 
                 default:
                     break;
             }
-            changelyrics.radioButton_to3.IsChecked = true;
+            changeLyrics.radioButton_to3.IsChecked = true;
             switch (toFormat)
             {
                 case Data.UtaFormat.Vsq4:
-                    changelyrics.radioButton_to2.Visibility = Visibility.Hidden;
-                    changelyrics.radioButton_to4.Visibility = Visibility.Hidden;
-                    changelyrics.radioButton_to3.Margin = changelyrics.radioButton_to2.Margin;
+                    changeLyrics.radioButton_to2.Visibility = Visibility.Hidden;
+                    changeLyrics.radioButton_to4.Visibility = Visibility.Hidden;
+                    changeLyrics.radioButton_to3.Margin = changeLyrics.radioButton_to2.Margin;
                     break;
 
                 case Data.UtaFormat.Ccs:
-                    changelyrics.radioButton_to1.Visibility = Visibility.Hidden;
-                    changelyrics.radioButton_to2.Visibility = Visibility.Hidden;
-                    changelyrics.radioButton_to4.Visibility = Visibility.Hidden;
-                    changelyrics.radioButton_to3.Margin = changelyrics.radioButton_to1.Margin;
+                    changeLyrics.radioButton_to1.Visibility = Visibility.Hidden;
+                    changeLyrics.radioButton_to2.Visibility = Visibility.Hidden;
+                    changeLyrics.radioButton_to4.Visibility = Visibility.Hidden;
+                    changeLyrics.radioButton_to3.Margin = changeLyrics.radioButton_to1.Margin;
                     break;
 
                 default:
                     break;
             }
-            bool? dialogResult = changelyrics.ShowDialog();
+            bool? dialogResult = changeLyrics.ShowDialog();
             if (dialogResult == true)
             {
-                exportingdata.Lyric.Transform(changelyrics.fromType, changelyrics.ToType);
+                exportingData.Lyric.Transform(changeLyrics.fromType, changeLyrics.ToType);
                 return true;
             }
             else

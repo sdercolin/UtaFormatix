@@ -67,9 +67,5 @@ namespace UtaFormatix
             DialogResult = false;
             MessageBox.Show("Please select the types correctly.", "Lyrics Transformation");
         }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
     }
 }
