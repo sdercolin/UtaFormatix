@@ -9,7 +9,7 @@ namespace UtaFormatix
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string version = "ver1.51";
+        private string version = "ver 2.0";
         private Data mainData;
         private Data exportingData;
         private bool imported = false;
