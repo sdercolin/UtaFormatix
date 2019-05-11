@@ -279,6 +279,7 @@ namespace UtaFormatix
                                         }
                                     }
                                 }
+                                noteList[i].NoteLyric = noteList[i].NoteLyric.Replace("っ", "");
                             }
                             break;
                         }
