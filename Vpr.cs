@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace UtaFormatix
 {
@@ -167,6 +168,23 @@ namespace UtaFormatix
             public VprExp Exp { get; set; }
             public VprSingingSkill SingingSkill { get; set; }
             public VprVibrato Vibrato { get; set; }
+
+            public VprNote CloneBlank()
+            {
+                return new VprNote
+                {
+                    Lyric = Lyric,
+                    Phoneme = Phoneme,
+                    IsProtected = IsProtected,
+                    Pos = Pos,
+                    Duration = Duration,
+                    Number = Number,
+                    Velocity = Velocity,
+                    Exp = Exp,
+                    SingingSkill = SingingSkill,
+                    Vibrato = Vibrato
+                };
+            }
         }
 
         public class VprPart
@@ -192,6 +210,35 @@ namespace UtaFormatix
             public bool IsMuted { get; set; }
             public bool IsSoloMode { get; set; }
             public List<VprPart> Parts { get; set; }
+
+            public VprTrack CloneBlank()
+            {
+                return new VprTrack
+                {
+                    Type = Type,
+                    Name = Name,
+                    Color = Color,
+                    BusNo = BusNo,
+                    IsFolded = IsFolded,
+                    Height = Height,
+                    Volume = Volume,
+                    Panpot = Panpot,
+                    IsMuted = IsMuted,
+                    IsSoloMode = IsSoloMode,
+                    Parts = new List<VprPart>
+                    {
+                        new VprPart()
+                        {
+                            Pos = Parts.First().Pos,
+                            Duration = Parts.First().Duration,
+                            StyleName = Parts.First().StyleName,
+                            Voice = Parts.First().Voice,
+                            MidiEffects = Parts.First().MidiEffects,
+                            Notes = new List<VprNote>()
+                        }
+                    }
+                };
+            }
         }
     }
 }

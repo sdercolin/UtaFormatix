@@ -15,5 +15,14 @@ namespace UtaFormatix
                 return path;
             }
         }
+
+        public static void ZipVpr(string targetFileName, string jsonFileName)
+        {
+            using (var zip = new ZipFile())
+            {
+                zip.AddFile(jsonFileName, "Project");
+                zip.Save(targetFileName);
+            }
+        }
     }
 }

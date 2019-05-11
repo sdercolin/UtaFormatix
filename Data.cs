@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -339,7 +341,7 @@ namespace UtaFormatix
             File.Copy(fileNames.First(), copiedVprTempFileName);
             var unzippedDirectory = ZipUtil.Unzip(copiedVprTempFileName);
             var jsonFileName = Path.Combine(unzippedDirectory, "Project", "sequence.json");
-            var vpr = Newtonsoft.Json.JsonConvert.DeserializeObject<Vpr>(File.ReadAllText(jsonFileName));
+            var vpr = JsonConvert.DeserializeObject<Vpr>(File.ReadAllText(jsonFileName));
 
             ProjectName = vpr.Title;
             PreMeasure = 1;
@@ -365,7 +367,6 @@ namespace UtaFormatix
                     TrackNum = i
                 };
                 track.NoteList = new List<Note>();
-                var noteNum = 0;
                 foreach (var vprPart in vprTrack.Parts)
                 {
                     var partStartTime = vprPart.Pos;
@@ -375,7 +376,6 @@ namespace UtaFormatix
                         {
                             NoteTimeOn = Constant.TickNumberForOneBar + partStartTime + vprNote.Pos,
                             NoteTimeOff = Constant.TickNumberForOneBar + partStartTime + vprNote.Pos + vprNote.Duration,
-                            NoteNum = noteNum++,
                             NoteKey = vprNote.Number,
                             NoteLyric = vprNote.Lyric
                         });
@@ -386,6 +386,7 @@ namespace UtaFormatix
                 {
                     continue;
                 }
+                var clearedNoteList = new List<Note>();
                 for (int j = 0; j < track.NoteList.Count - 1; j++)
                 {
                     var note = track.NoteList[j];
@@ -394,8 +395,16 @@ namespace UtaFormatix
                     {
                         note.NoteTimeOff = nextNote.NoteTimeOn;
                     }
+                    if (note.NoteTimeOff > note.NoteTimeOn)
+                    {
+                        clearedNoteList.Add(note);
+                    }
                 }
-
+                for (int j = 0; j < clearedNoteList.Count; j++)
+                {
+                    clearedNoteList[j].NoteNum = j;
+                }
+                track.NoteList = clearedNoteList;
                 if (track.NoteList.Count > 0)
                 {
                     TrackList.Add(track);
@@ -862,6 +871,71 @@ namespace UtaFormatix
             }
             vsq4.Save(fileName);
             MessageBox.Show("Vsqx is successfully exported." + Environment.NewLine + "If it only pronounces \"a\", please select all notes and run \"Lyrics\"→\"Convert Phonemes\". ", "Export Vsqx");
+        }
+
+        public void ExportVpr(string fileName)
+        {
+            string template = "{\"version\":{\"major\":5,\"minor\":0,\"revision\":0},\"vender\":\"Yamaha Corporation\",\"title\":\"title\",\"masterTrack\":{\"samplingRate\":44100,\"loop\":{\"isEnabled\":true,\"begin\":0,\"end\":7680},\"tempo\":{\"isFolded\":false,\"height\":0.0,\"global\":{\"isEnabled\":false,\"value\":12000},\"events\":[{\"pos\":0,\"value\":12000}]},\"timeSig\":{\"isFolded\":false,\"events\":[{\"bar\":0,\"numer\":4,\"denom\":4}]},\"volume\":{\"isFolded\":false,\"height\":0.0,\"events\":[{\"pos\":0,\"value\":0}]}},\"voices\":[{\"compID\":\"BCXDC6CZLSZHZCB4\",\"name\":\"VY2V3\"}],\"tracks\":[{\"type\":0,\"name\":\"1 VOCALOID\",\"color\":0,\"busNo\":0,\"isFolded\":false,\"height\":0.0,\"volume\":{\"isFolded\":true,\"height\":40.0,\"events\":[{\"pos\":0,\"value\":0}]},\"panpot\":{\"isFolded\":true,\"height\":40.0,\"events\":[{\"pos\":0,\"value\":0}]},\"isMuted\":false,\"isSoloMode\":false,\"parts\":[{\"pos\":0,\"duration\":1920,\"styleName\":\"No Effect\",\"voice\":{\"compID\":\"BCXDC6CZLSZHZCB4\",\"langID\":0},\"midiEffects\":[{\"id\":\"SingingSkill\",\"isBypassed\":true,\"isFolded\":false,\"parameters\":[{\"name\":\"Amount\",\"value\":5},{\"name\":\"Name\",\"value\":\"75F04D2B-D8E4-44b8-939B-41CD101E08FD\"},{\"name\":\"Skill\",\"value\":5}]},{\"id\":\"VoiceColor\",\"isBypassed\":true,\"isFolded\":false,\"parameters\":[{\"name\":\"Air\",\"value\":0},{\"name\":\"Breathiness\",\"value\":0},{\"name\":\"Character\",\"value\":0},{\"name\":\"Exciter\",\"value\":0},{\"name\":\"Growl\",\"value\":0},{\"name\":\"Mouth\",\"value\":0}]},{\"id\":\"RobotVoice\",\"isBypassed\":true,\"isFolded\":false,\"parameters\":[{\"name\":\"Mode\",\"value\":1}]},{\"id\":\"DefaultLyric\",\"isBypassed\":true,\"isFolded\":false,\"parameters\":[{\"name\":\"CHS\",\"value\":\"a\"},{\"name\":\"ENG\",\"value\":\"Ooh\"},{\"name\":\"ESP\",\"value\":\"a\"},{\"name\":\"JPN\",\"value\":\"あ\"},{\"name\":\"KOR\",\"value\":\"아\"}]},{\"id\":\"Breath\",\"isBypassed\":true,\"isFolded\":false,\"parameters\":[{\"name\":\"Exhalation\",\"value\":5},{\"name\":\"Mode\",\"value\":1},{\"name\":\"Type\",\"value\":0}]}],\"notes\":[{\"lyric\":\"あ\",\"phoneme\":\"a\",\"isProtected\":false,\"pos\":480,\"duration\":480,\"number\":54,\"velocity\":64,\"exp\":{\"opening\":127},\"singingSkill\":{\"duration\":158,\"weight\":{\"pre\":64,\"post\":64}},\"vibrato\":{\"type\":0,\"duration\":0}}]}]}]}";
+            var vpr = JsonConvert.DeserializeObject<Vpr>(template);
+            var endPos = 0;
+            vpr.Title = ProjectName;
+            vpr.MasterTrack.TimeSig.Events = TimeSigList.Select(it => new Vpr.VprTimeSigEvent
+            {
+                Bar = it.PosMes,
+                Numer = it.Nume,
+                Denom = it.Denomi
+            }).ToList();
+            endPos = Math.Max(endPos, vpr.MasterTrack.TimeSig.Events.Select(it => it.Bar * Constant.TickNumberForOneBar).Max());
+            vpr.MasterTrack.Tempo.Events = TempoList.Select(it => new Vpr.VprTempoEvent
+            {
+                Pos = it.PosTick,
+                Value = it.BpmTimes100
+            }).ToList();
+            endPos = Math.Max(endPos, vpr.MasterTrack.Tempo.Events.Select(it => it.Pos).Max());
+
+            var trackTemplate = vpr.Tracks.First();
+            vpr.Tracks.Clear();
+            foreach (var track in TrackList)
+            {
+                var newTrack = trackTemplate.CloneBlank();
+                newTrack.Parts.First().Notes = track.NoteList.Select(it =>
+                {
+                    var newNote = trackTemplate.Parts.First().Notes.First().CloneBlank();
+                    newNote.Pos = it.NoteTimeOn;
+                    newNote.Duration = it.NoteTimeOff - it.NoteTimeOn;
+                    newNote.Number = it.NoteKey;
+                    newNote.Lyric = it.NoteLyric;
+                    return newNote;
+                }).ToList();
+                var trackEndPos = track.NoteList.Last().NoteTimeOff;
+                newTrack.Parts.First().Duration = trackEndPos;
+                vpr.Tracks.Add(newTrack);
+            }
+            endPos = Math.Max(endPos, vpr.Tracks.Select(it => it.Parts.First().Duration).Max());
+            vpr.MasterTrack.Loop.End = endPos;
+
+            var json = JsonConvert.SerializeObject(vpr, new JsonSerializerSettings()
+            {
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy()
+                }
+            });
+
+            var tempDirectory = "temp/";
+            if (Directory.Exists(tempDirectory))
+            {
+                Directory.Delete(tempDirectory, true);
+            }
+            var directory = Directory.CreateDirectory(tempDirectory);
+            var jsonFileName = tempDirectory + "sequence.json";
+            File.WriteAllText(jsonFileName, json);
+            ZipUtil.ZipVpr(fileName, jsonFileName);
+            if (Directory.Exists(tempDirectory))
+            {
+                Directory.Delete(tempDirectory, true);
+            }
+            MessageBox.Show("Vpr is successfully exported." + Environment.NewLine + "If it only pronounces \"a\", please select all notes and run \"Lyrics\"→\"Convert Phonemes\". ", "Export Vsqx");
         }
 
         public void ExportCcs(string fileName)

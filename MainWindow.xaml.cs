@@ -50,6 +50,36 @@ namespace UtaFormatix
             }
         }
 
+        private void ExportVpr(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (imported)
+            {
+                exportingData = new Data(mainData);
+                if (!transformLyrics(Data.UtaFormat.Vpr))
+                {
+                    return;
+                }
+                var saveFileDialog = new SaveFileDialog
+                {
+                    Title = "Export",
+                    Filter = "VOCALOID5 Project|*.vpr",
+                    FileName = exportingData.ProjectName,
+                    FilterIndex = 1,
+                    RestoreDirectory = true
+                };
+                if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string filename = saveFileDialog.FileName;
+                    exportingData.ExportVpr(filename);
+                }
+                exportingData = null;
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("You have not imported a project.", "Export");
+            }
+        }
+
         private void ExportCcs(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (imported)
