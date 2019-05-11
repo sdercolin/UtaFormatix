@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UtaFormatix"
         mc:Ignorable="d"
-        Title="Lyrics Transformation" Height="298.28" Width="331.806" Background="#FF131313" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ScrollViewer.VerticalScrollBarVisibility="Disabled" Icon="resources/H 256.ico" Loaded="Window_Loaded">
+        Title="Lyrics Transformation" Height="298.28" Width="331.806" Background="#FF131313" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ScrollViewer.VerticalScrollBarVisibility="Disabled" Icon="resources/H 256.ico">
     <Grid>
         <RadioButton x:Name="radioButton_from1" Content="Romaji CV" HorizontalAlignment="Left" Margin="23,78,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="FromType" />
         <RadioButton x:Name="radioButton_from2" Content="Romaji VCV" HorizontalAlignment="Left" Margin="23,102,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="FromType" />
