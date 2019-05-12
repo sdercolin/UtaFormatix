@@ -19,8 +19,8 @@
         </Image>
         <Image x:Name="BtnImport" HorizontalAlignment="Left" Height="102" Margin="38,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/import.png" Cursor="Hand" MouseEnter="BtnImport_MouseEnter" />
         <Image x:Name="BtnImport_Cover" HorizontalAlignment="Left" Height="102" Margin="38,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/import3.png" MouseUp="Import" Cursor="Hand" MouseLeave="BtnImport_Cover_MouseLeave" Visibility="Hidden" />
-        <Image x:Name="BtnExportVsqx_Cover" HorizontalAlignment="Left" Height="102" Margin="168,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/export.png" MouseUp="ExportVsq4" Cursor="Hand" MouseLeave="BtnExportVsqx_Cover_MouseLeave" Visibility="Hidden" />
         <Image x:Name="BtnExportVsqx" HorizontalAlignment="Left" Height="102" Margin="168,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/vocaloid4.png" Cursor="Hand" MouseEnter="BtnExportVsqx_MouseEnter" />
+        <Image x:Name="BtnExportVsqx_Cover" HorizontalAlignment="Left" Height="102" Margin="168,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/export.png" MouseUp="ExportVsq4" Cursor="Hand" MouseLeave="BtnExportVsqx_Cover_MouseLeave" Visibility="Hidden" />
         <Image x:Name="BtnExportVpr" HorizontalAlignment="Left" Height="102" Margin="298,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/vocaloid5.png" Cursor="Hand" MouseEnter="BtnExportVpr_MouseEnter" />
         <Image x:Name="BtnExportVpr_Cover" HorizontalAlignment="Left" Height="102" Margin="298,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/export.png" MouseUp="ExportVpr" Cursor="Hand"  MouseLeave="BtnExportVpr_Cover_MouseLeave" Visibility="Hidden" />
         <Image x:Name="BtnExportUst" HorizontalAlignment="Left" Height="102" Margin="428,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/utau.png" Cursor="Hand" MouseEnter="BtnExportUst_MouseEnter" />
