@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -17,15 +19,15 @@ namespace UtaFormatix
         public MainWindow()
         {
             InitializeComponent();
-            label.Content = version;
+            LabelVersion.Content = version;
         }
 
-        private void ExportVsq4(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private async void ExportVsq4(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (imported)
             {
                 exportingData = new Data(mainData);
-                if (!transformLyrics(Data.UtaFormat.Vsq4))
+                if (!await TransformLyrics(Data.UtaFormat.Vsq4))
                 {
                     return;
                 }
@@ -39,8 +41,8 @@ namespace UtaFormatix
                 };
                 if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    string filename = saveFileDialog.FileName;
-                    exportingData.ExportVsq4(filename);
+                    string fileName = saveFileDialog.FileName;
+                    await ProcessExport(Data.UtaFormat.Vsq4, fileName);
                 }
                 exportingData = null;
             }
@@ -50,12 +52,42 @@ namespace UtaFormatix
             }
         }
 
-        private void ExportCcs(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private async void ExportVpr(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (imported)
             {
                 exportingData = new Data(mainData);
-                if (!transformLyrics(Data.UtaFormat.Ccs))
+                if (!await TransformLyrics(Data.UtaFormat.Vpr))
+                {
+                    return;
+                }
+                var saveFileDialog = new SaveFileDialog
+                {
+                    Title = "Export",
+                    Filter = "VOCALOID5 Project|*.vpr",
+                    FileName = exportingData.ProjectName,
+                    FilterIndex = 1,
+                    RestoreDirectory = true
+                };
+                if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string filename = saveFileDialog.FileName;
+                    await ProcessExport(Data.UtaFormat.Vpr, filename);
+                }
+                exportingData = null;
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("You have not imported a project.", "Export");
+            }
+        }
+
+        private async void ExportCcs(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (imported)
+            {
+                exportingData = new Data(mainData);
+                if (!await TransformLyrics(Data.UtaFormat.Ccs))
                 {
                     return;
                 }
@@ -70,7 +102,7 @@ namespace UtaFormatix
                 if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     string fileName = saveFileDialog.FileName;
-                    exportingData.ExportCcs(fileName);
+                    await ProcessExport(Data.UtaFormat.Ccs, fileName);
                 }
                 exportingData = null;
             }
@@ -80,12 +112,12 @@ namespace UtaFormatix
             }
         }
 
-        private void ExportUst(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private async void ExportUst(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (imported)
             {
                 exportingData = new Data(mainData);
-                if (!transformLyrics(Data.UtaFormat.Ust))
+                if (!await TransformLyrics(Data.UtaFormat.Ust))
                 {
                     return;
                 }
@@ -94,8 +126,7 @@ namespace UtaFormatix
                 selectFolder.SelectedPath = exportingData.Files[0].Replace(System.IO.Path.GetFileName(exportingData.Files[0]), "");
                 if (selectFolder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    string foldpath = selectFolder.SelectedPath;
-                    exportingData.ExportUst(foldpath);
+                    await ProcessExport(Data.UtaFormat.Vsq4, selectFolder.SelectedPath);
                 }
                 exportingData = null;
             }
@@ -105,12 +136,12 @@ namespace UtaFormatix
             }
         }
 
-        private void Import(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private async void Import(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var openFileDialog = new OpenFileDialog
             {
                 Title = "Import",
-                Filter = "VOCALOID Project|*.vsqx|UTAU Project|*.ust|CeVIO Project|*.ccs",
+                Filter = "VOCALOID5 Project|*.vpr|VOCALOID Project|*.vsqx|UTAU Project|*.ust|CeVIO Project|*.ccs",
                 FileName = string.Empty,
                 FilterIndex = 1,
                 RestoreDirectory = true,
@@ -121,71 +152,86 @@ namespace UtaFormatix
             {
                 return;
             }
-            var fileNames = new List<string>();
-            fileNames.AddRange(openFileDialog.FileNames);
+            var fileNames = openFileDialog.FileNames.ToList();
             mainData = new Data();
-            imported = mainData.Import(fileNames);
+            ShowProcessingScreen();
+            imported = await mainData.Import(fileNames);
+            HideProcessingScreen();
         }
 
         private void BtnImport_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             BtnImport.Opacity = 0.1;
-            BtnImport_Cover.Visibility = Visibility.Visible;
+            BtnImportCover.Visibility = Visibility.Visible;
         }
 
         private void BtnImport_Cover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             BtnImport.Opacity = 1;
-            BtnImport_Cover.Visibility = Visibility.Hidden;
+            BtnImportCover.Visibility = Visibility.Hidden;
         }
 
         private void BtnExportCcs_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             BtnExportCcs.Opacity = 0.1;
-            BtnExportCcs_Cover.Visibility = Visibility.Visible;
+            BtnExportCcsCover.Visibility = Visibility.Visible;
         }
 
         private void BtnExportUst_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             BtnExportUst.Opacity = 0.1;
-            BtnExportUst_Cover.Visibility = Visibility.Visible;
+            BtnExportUstCover.Visibility = Visibility.Visible;
         }
 
         private void BtnExportVsqx_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             BtnExportVsqx.Opacity = 0.1;
-            BtnExportVsqx_Cover.Visibility = Visibility.Visible;
+            BtnExportVsqxCover.Visibility = Visibility.Visible;
+        }
+
+        private void BtnExportVpr_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            BtnExportVpr.Opacity = 0.1;
+            BtnExportVprCover.Visibility = Visibility.Visible;
         }
 
         private void BtnExportVsqx_Cover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             BtnExportVsqx.Opacity = 1;
-            BtnExportVsqx_Cover.Visibility = Visibility.Hidden;
+            BtnExportVsqxCover.Visibility = Visibility.Hidden;
+        }
+
+        private void BtnExportVpr_Cover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            BtnExportVpr.Opacity = 1;
+            BtnExportVprCover.Visibility = Visibility.Hidden;
         }
 
         private void BtnExportUst_Cover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             BtnExportUst.Opacity = 1;
-            BtnExportUst_Cover.Visibility = Visibility.Hidden;
+            BtnExportUstCover.Visibility = Visibility.Hidden;
         }
 
         private void BtnExportCcs_Cover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             BtnExportCcs.Opacity = 1;
-            BtnExportCcs_Cover.Visibility = Visibility.Hidden;
+            BtnExportCcsCover.Visibility = Visibility.Hidden;
         }
 
         private void Grid_DragEnter(object sender, System.Windows.DragEventArgs e)
         {
-            Droping.Visibility = Visibility.Visible;
+            LayerDropping.Visibility = Visibility.Visible;
+            TextLayerDropping.Visibility = Visibility.Visible;
         }
 
         private void Grid_DragLeave(object sender, System.Windows.DragEventArgs e)
         {
-            Droping.Visibility = Visibility.Hidden;
+            LayerDropping.Visibility = Visibility.Hidden;
+            TextLayerDropping.Visibility = Visibility.Hidden;
         }
 
-        private void Grid_Drop(object sender, System.Windows.DragEventArgs e)
+        private async void Grid_Drop(object sender, System.Windows.DragEventArgs e)
         {
             if (e.Data.GetDataPresent(System.Windows.DataFormats.FileDrop))
             {
@@ -196,59 +242,62 @@ namespace UtaFormatix
                 e.Effects = System.Windows.DragDropEffects.None;
             }
             var fileNames = new List<string>();
-            var dropfiles = (System.Array)e.Data.GetData(System.Windows.DataFormats.FileDrop);
-            foreach (var dropfile in dropfiles)
+            var dropFiles = (System.Array)e.Data.GetData(System.Windows.DataFormats.FileDrop);
+            foreach (var dropfile in dropFiles)
             {
                 fileNames.Add(dropfile.ToString());
             }
             mainData = new Data();
-            imported = mainData.Import(fileNames);
-            Droping.Visibility = Visibility.Hidden;
+            LayerDropping.Visibility = Visibility.Hidden;
+            TextLayerDropping.Visibility = Visibility.Hidden;
+            ShowProcessingScreen();
+            imported = await mainData.Import(fileNames);
+            HideProcessingScreen();
         }
 
-        private bool transformLyrics(Data.UtaFormat toFormat)
+        private async Task<bool> TransformLyrics(Data.UtaFormat toFormat)
         {
             var changeLyrics = new ChangeLyrics();
             switch (mainData.Lyric.TypeAnalysed)
             {
                 case Lyric.LyricType.None:
                     System.Windows.MessageBox.Show("The type of the lyrics is not detected, please select the correct type by yourself.", "Lyrics Transformation");
-                    changeLyrics.radioButton_from1.IsChecked = true;
+                    changeLyrics.RadioButtonFrom1.IsChecked = true;
                     break;
 
                 case Lyric.LyricType.RomajiTandoku:
-                    changeLyrics.radioButton_from1.IsChecked = true;
+                    changeLyrics.RadioButtonFrom1.IsChecked = true;
                     break;
 
                 case Lyric.LyricType.RomajiRenzoku:
-                    changeLyrics.radioButton_from2.IsChecked = true;
+                    changeLyrics.RadioButtonFrom2.IsChecked = true;
                     break;
 
                 case Lyric.LyricType.KanaTandoku:
-                    changeLyrics.radioButton_from3.IsChecked = true;
+                    changeLyrics.RadioButtonFrom3.IsChecked = true;
                     break;
 
                 case Lyric.LyricType.KanaRenzoku:
-                    changeLyrics.radioButton_from4.IsChecked = true;
+                    changeLyrics.RadioButtonFrom4.IsChecked = true;
                     break;
 
                 default:
                     break;
             }
-            changeLyrics.radioButton_to3.IsChecked = true;
+            changeLyrics.RadioButtonTo3.IsChecked = true;
             switch (toFormat)
             {
                 case Data.UtaFormat.Vsq4:
-                    changeLyrics.radioButton_to2.Visibility = Visibility.Hidden;
-                    changeLyrics.radioButton_to4.Visibility = Visibility.Hidden;
-                    changeLyrics.radioButton_to3.Margin = changeLyrics.radioButton_to2.Margin;
+                    changeLyrics.RadioButtonTo2.Visibility = Visibility.Hidden;
+                    changeLyrics.RadioButtonTo4.Visibility = Visibility.Hidden;
+                    changeLyrics.RadioButtonTo3.Margin = changeLyrics.RadioButtonTo2.Margin;
                     break;
 
                 case Data.UtaFormat.Ccs:
-                    changeLyrics.radioButton_to1.Visibility = Visibility.Hidden;
-                    changeLyrics.radioButton_to2.Visibility = Visibility.Hidden;
-                    changeLyrics.radioButton_to4.Visibility = Visibility.Hidden;
-                    changeLyrics.radioButton_to3.Margin = changeLyrics.radioButton_to1.Margin;
+                    changeLyrics.RadioButtonTo1.Visibility = Visibility.Hidden;
+                    changeLyrics.RadioButtonTo2.Visibility = Visibility.Hidden;
+                    changeLyrics.RadioButtonTo4.Visibility = Visibility.Hidden;
+                    changeLyrics.RadioButtonTo3.Margin = changeLyrics.RadioButtonTo1.Margin;
                     break;
 
                 default:
@@ -257,13 +306,53 @@ namespace UtaFormatix
             bool? dialogResult = changeLyrics.ShowDialog();
             if (dialogResult == true)
             {
-                exportingData.Lyric.Transform(changeLyrics.fromType, changeLyrics.ToType);
+                ShowProcessingScreen();
+                await Task.Run(() =>
+                {
+                    exportingData.Lyric.Transform(changeLyrics.fromType, changeLyrics.ToType);
+                });
+                HideProcessingScreen();
                 return true;
             }
             else
             {
                 return false;
             }
+        }
+
+        private async Task ProcessExport(Data.UtaFormat format, string fileName)
+        {
+            ShowProcessingScreen();
+            switch (format)
+            {
+                case Data.UtaFormat.Vsq4:
+                    await exportingData.ExportVsq4(fileName);
+                    break;
+                case Data.UtaFormat.Ust:
+                    await exportingData.ExportUst(fileName);
+                    break;
+                case Data.UtaFormat.Ccs:
+                    await exportingData.ExportCcs(fileName);
+                    break;
+                case Data.UtaFormat.Vpr:
+                    await exportingData.ExportVpr(fileName);
+                    break;
+                default:
+                    break;
+            }
+            HideProcessingScreen();
+        }
+
+        private void ShowProcessingScreen()
+        {
+            LayerProcessing.Visibility = Visibility.Visible;
+            TextLayerProcessing.Visibility = Visibility.Visible;
+        }
+
+        private void HideProcessingScreen()
+        {
+            LayerProcessing.Visibility = Visibility.Hidden;
+            TextLayerProcessing.Visibility = Visibility.Hidden;
         }
     }
 }
