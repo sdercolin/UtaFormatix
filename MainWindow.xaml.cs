@@ -165,7 +165,7 @@ namespace UtaFormatix
             BtnImportCover.Visibility = Visibility.Visible;
         }
 
-        private void BtnImport_Cover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        private void BtnImportCover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             BtnImport.Opacity = 1;
             BtnImportCover.Visibility = Visibility.Hidden;
@@ -195,25 +195,25 @@ namespace UtaFormatix
             BtnExportVprCover.Visibility = Visibility.Visible;
         }
 
-        private void BtnExportVsqx_Cover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        private void BtnExportVsqxCover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             BtnExportVsqx.Opacity = 1;
             BtnExportVsqxCover.Visibility = Visibility.Hidden;
         }
 
-        private void BtnExportVpr_Cover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        private void BtnExportVprCover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             BtnExportVpr.Opacity = 1;
             BtnExportVprCover.Visibility = Visibility.Hidden;
         }
 
-        private void BtnExportUst_Cover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        private void BtnExportUstCover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             BtnExportUst.Opacity = 1;
             BtnExportUstCover.Visibility = Visibility.Hidden;
         }
 
-        private void BtnExportCcs_Cover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        private void BtnExportCcsCover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             BtnExportCcs.Opacity = 1;
             BtnExportCcsCover.Visibility = Visibility.Hidden;
