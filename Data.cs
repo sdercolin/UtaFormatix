@@ -376,18 +376,24 @@ namespace UtaFormatix
                         TrackNum = i
                     };
                     track.NoteList = new List<Note>();
-                    foreach (var vprPart in vprTrack.Parts)
+                    if (vprTrack.Parts != null)
                     {
-                        var partStartTime = vprPart.Pos;
-                        foreach (var vprNote in vprPart.Notes)
+                        foreach (var vprPart in vprTrack.Parts)
                         {
-                            track.NoteList.Add(new Note
+                            var partStartTime = vprPart.Pos;
+                            if (vprPart.Notes != null)
                             {
-                                NoteTimeOn = Constant.TickNumberForOneBar + partStartTime + vprNote.Pos,
-                                NoteTimeOff = Constant.TickNumberForOneBar + partStartTime + vprNote.Pos + vprNote.Duration,
-                                NoteKey = vprNote.Number,
-                                NoteLyric = vprNote.Lyric
-                            });
+                                foreach (var vprNote in vprPart.Notes)
+                                {
+                                    track.NoteList.Add(new Note
+                                    {
+                                        NoteTimeOn = Constant.TickNumberForOneBar + partStartTime + vprNote.Pos,
+                                        NoteTimeOff = Constant.TickNumberForOneBar + partStartTime + vprNote.Pos + vprNote.Duration,
+                                        NoteKey = vprNote.Number,
+                                        NoteLyric = vprNote.Lyric
+                                    });
+                                }
+                            }
                         }
                     }
 
@@ -395,6 +401,7 @@ namespace UtaFormatix
                     {
                         continue;
                     }
+
                     var clearedNoteList = new List<Note>();
                     for (int j = 0; j < track.NoteList.Count - 1; j++)
                     {
