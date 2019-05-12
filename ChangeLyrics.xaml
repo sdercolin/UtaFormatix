@@ -7,19 +7,19 @@
         mc:Ignorable="d"
         Title="Lyrics Transformation" Height="298.28" Width="331.806" Background="#FF131313" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ScrollViewer.VerticalScrollBarVisibility="Disabled" Icon="resources/H 256.ico">
     <Grid>
-        <RadioButton x:Name="radioButton_from1" Content="Romaji CV" HorizontalAlignment="Left" Margin="23,78,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="FromType" />
-        <RadioButton x:Name="radioButton_from2" Content="Romaji VCV" HorizontalAlignment="Left" Margin="23,102,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="FromType" />
-        <RadioButton x:Name="radioButton_from3" Content="Kana CV" HorizontalAlignment="Left" Margin="23,126,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="FromType" />
-        <RadioButton x:Name="radioButton_from4" Content="Kana VCV" HorizontalAlignment="Left" Margin="23,150,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="FromType" />
-        <RadioButton x:Name="radioButton_to1" Content="Romaji CV" HorizontalAlignment="Left" Margin="194,78,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="ToType" />
-        <RadioButton x:Name="radioButton_to2" Content="Romaji VCV" HorizontalAlignment="Left" Margin="194,102,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="ToType" />
-        <RadioButton x:Name="radioButton_to3" Content="Kana CV" HorizontalAlignment="Left" Margin="194,126,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="ToType" />
-        <RadioButton x:Name="radioButton_to4" Content="Kana VCV" HorizontalAlignment="Left" Margin="194,150,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="ToType" />
-        <Button x:Name="button_confirm" Content="OK" HorizontalAlignment="Left" Margin="223,230,0,0" VerticalAlignment="Top" Width="87" Height="24" Click="button_confirm_Click" />
-        <Label x:Name="label" Content="From:" HorizontalAlignment="Left" Margin="19,50,0,0" Foreground="#FF8B8B8B" VerticalAlignment="Top" />
-        <Label x:Name="label2" Content="To:" HorizontalAlignment="Left" Margin="189,50,0,0" Foreground="#FF8B8B8B" VerticalAlignment="Top" />
-        <Label x:Name="label3" Content="Select the type of the lyrics (Only for Japanese):" HorizontalAlignment="Left" Margin="19,17,0,0" Foreground="#FF8B8B8B" VerticalAlignment="Top" />
-        <Button x:Name="button_cancel" Content="Keep Original" HorizontalAlignment="Left" Margin="94,230,0,0" VerticalAlignment="Top" Width="107" Height="24" Click="button_cancel_Click" />
-        <Label x:Name="label3_Copy" Content="If you choose to do this process,&#xD;&#xA;it may take a while.  Please wait patiently..." HorizontalAlignment="Left" Margin="23,176,0,0" Foreground="#FF8B8B8B" VerticalAlignment="Top" />
+        <RadioButton x:Name="RadioButtonFrom1" Content="Romaji CV" HorizontalAlignment="Left" Margin="23,78,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="FromType" />
+        <RadioButton x:Name="RadioButtonFrom2" Content="Romaji VCV" HorizontalAlignment="Left" Margin="23,102,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="FromType" />
+        <RadioButton x:Name="RadioButtonFrom3" Content="Kana CV" HorizontalAlignment="Left" Margin="23,126,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="FromType" />
+        <RadioButton x:Name="RadioButtonFrom4" Content="Kana VCV" HorizontalAlignment="Left" Margin="23,150,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="FromType" />
+        <RadioButton x:Name="RadioButtonTo1" Content="Romaji CV" HorizontalAlignment="Left" Margin="194,78,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="ToType" />
+        <RadioButton x:Name="RadioButtonTo2" Content="Romaji VCV" HorizontalAlignment="Left" Margin="194,102,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="ToType" />
+        <RadioButton x:Name="RadioButtonTo3" Content="Kana CV" HorizontalAlignment="Left" Margin="194,126,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="ToType" />
+        <RadioButton x:Name="RadioButtonTo4" Content="Kana VCV" HorizontalAlignment="Left" Margin="194,150,0,0" VerticalAlignment="Top" Foreground="#FF8B8B8B" GroupName="ToType" />
+        <Button x:Name="ButtonConfirm" Content="OK" HorizontalAlignment="Left" Margin="223,230,0,0" VerticalAlignment="Top" Width="87" Height="24" Click="ButtonConfirm_Click" />
+        <Label x:Name="Label" Content="From:" HorizontalAlignment="Left" Margin="19,50,0,0" Foreground="#FF8B8B8B" VerticalAlignment="Top" />
+        <Label x:Name="Label2" Content="To:" HorizontalAlignment="Left" Margin="189,50,0,0" Foreground="#FF8B8B8B" VerticalAlignment="Top" />
+        <Label x:Name="Label3" Content="Select the type of the lyrics (Only for Japanese):" HorizontalAlignment="Left" Margin="19,17,0,0" Foreground="#FF8B8B8B" VerticalAlignment="Top" />
+        <Button x:Name="ButtonCancel" Content="Keep Original" HorizontalAlignment="Left" Margin="94,230,0,0" VerticalAlignment="Top" Width="107" Height="24" Click="ButtonCancel_Click" />
+        <Label x:Name="Label4" Content="If you choose to do this process,&#xD;&#xA;it may take a while.  Please wait patiently..." HorizontalAlignment="Left" Margin="23,176,0,0" Foreground="#FF8B8B8B" VerticalAlignment="Top" />
     </Grid>
 </Window>
