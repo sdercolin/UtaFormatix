@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UtaFormatix"
         mc:Ignorable="d"
-        Title="UtaFormatix" Height="197.782" Width="579.881" Background="#FF131313" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ScrollViewer.VerticalScrollBarVisibility="Disabled" Icon="resources/H 256.ico">
+        Title="UtaFormatix" Height="198" Width="688" Background="#FF131313" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ScrollViewer.VerticalScrollBarVisibility="Disabled" Icon="resources/H 256.ico">
     <Grid Margin="0,0,0,2.071" AllowDrop="True" DragEnter="Grid_DragEnter" DragLeave="Grid_DragLeave" Drop="Grid_Drop">
-        <Image x:Name="image" HorizontalAlignment="Left" Height="148" Margin="44,84,-49,-65.071" VerticalAlignment="Top" Width="579" Source="resources/title.png" Opacity="0.04" RenderTransformOrigin="0.5,0.5">
+        <Image x:Name="image" HorizontalAlignment="Left" Height="170" Margin="63,78,-38,-81.071" VerticalAlignment="Top" Width="667" Source="resources/title.png" Opacity="0.04" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform />
@@ -17,14 +17,16 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="BtnExportCcs" HorizontalAlignment="Left" Height="102" Margin="427,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/cevio.png" Cursor="Hand" MouseEnter="BtnExportCcs_MouseEnter" />
-        <Image x:Name="BtnExportUst" HorizontalAlignment="Left" Height="102" Margin="297,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/utau.png" Cursor="Hand" MouseEnter="BtnExportUst_MouseEnter" />
-        <Image x:Name="BtnExportVsqx" HorizontalAlignment="Left" Height="102" Margin="169,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/vocaloid.png" Cursor="Hand" MouseEnter="BtnExportVsqx_MouseEnter" />
         <Image x:Name="BtnImport" HorizontalAlignment="Left" Height="102" Margin="38,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/import.png" Cursor="Hand" MouseEnter="BtnImport_MouseEnter" />
         <Image x:Name="BtnImport_Cover" HorizontalAlignment="Left" Height="102" Margin="38,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/import3.png" MouseUp="Import" Cursor="Hand" MouseLeave="BtnImport_Cover_MouseLeave" Visibility="Hidden" />
-        <Image x:Name="BtnExportVsqx_Cover" HorizontalAlignment="Left" Height="102" Margin="169,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/export.png" MouseUp="ExportVpr" Cursor="Hand" MouseLeave="BtnExportVsqx_Cover_MouseLeave" Visibility="Hidden" />
-        <Image x:Name="BtnExportUst_Cover" HorizontalAlignment="Left" Height="102" Margin="297,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/export.png" MouseUp="ExportUst" Cursor="Hand"  MouseLeave="BtnExportUst_Cover_MouseLeave" Visibility="Hidden" />
-        <Image x:Name="BtnExportCcs_Cover" HorizontalAlignment="Left" Height="102" Margin="427,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/export.png" MouseUp="ExportCcs" Cursor="Hand" MouseLeave="BtnExportCcs_Cover_MouseLeave" Visibility="Hidden" />
+        <Image x:Name="BtnExportVsqx_Cover" HorizontalAlignment="Left" Height="102" Margin="168,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/export.png" MouseUp="ExportVsp4" Cursor="Hand" MouseLeave="BtnExportVsqx_Cover_MouseLeave" Visibility="Hidden" />
+        <Image x:Name="BtnExportVsqx" HorizontalAlignment="Left" Height="102" Margin="168,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/vocaloid4.png" Cursor="Hand" MouseEnter="BtnExportVsqx_MouseEnter" />
+        <Image x:Name="BtnExportVpr" HorizontalAlignment="Left" Height="102" Margin="298,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/vocaloid5.png" Cursor="Hand" MouseEnter="BtnExportVpr_MouseEnter" />
+        <Image x:Name="BtnExportVpr_Cover" HorizontalAlignment="Left" Height="102" Margin="298,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/export.png" MouseUp="ExportVpr" Cursor="Hand"  MouseLeave="BtnExportVpr_Cover_MouseLeave" Visibility="Hidden" />
+        <Image x:Name="BtnExportUst" HorizontalAlignment="Left" Height="102" Margin="428,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/utau.png" Cursor="Hand" MouseEnter="BtnExportUst_MouseEnter" />
+        <Image x:Name="BtnExportUst_Cover" HorizontalAlignment="Left" Height="102" Margin="428,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/export.png" MouseUp="ExportUst" Cursor="Hand"  MouseLeave="BtnExportUst_Cover_MouseLeave" Visibility="Hidden" />
+        <Image x:Name="BtnExportCcs" HorizontalAlignment="Left" Height="102" Margin="558,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/cevio.png" Cursor="Hand" MouseEnter="BtnExportCcs_MouseEnter" />
+        <Image x:Name="BtnExportCcs_Cover" HorizontalAlignment="Left" Height="102" Margin="558,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/export.png" MouseUp="ExportCcs" Cursor="Hand" MouseLeave="BtnExportCcs_Cover_MouseLeave" Visibility="Hidden" />
         <Label x:Name="label" Content="Label" HorizontalAlignment="Right" Margin="0,5,5,0" VerticalAlignment="Top" Foreground="#FF767676" />
         <Image x:Name="Droping" HorizontalAlignment="Left" Height="198" Margin="0,-14,-6,-17.071" VerticalAlignment="Top" Width="580" Source="resources/white_cover.png" Cursor="Hand" Opacity="0.9" Stretch="None" Visibility="Hidden" />
     </Grid>

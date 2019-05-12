@@ -187,10 +187,22 @@ namespace UtaFormatix
             BtnExportVsqx_Cover.Visibility = Visibility.Visible;
         }
 
+        private void BtnExportVpr_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            BtnExportVpr.Opacity = 0.1;
+            BtnExportVpr_Cover.Visibility = Visibility.Visible;
+        }
+
         private void BtnExportVsqx_Cover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             BtnExportVsqx.Opacity = 1;
             BtnExportVsqx_Cover.Visibility = Visibility.Hidden;
+        }
+
+        private void BtnExportVpr_Cover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            BtnExportVpr.Opacity = 1;
+            BtnExportVpr_Cover.Visibility = Visibility.Hidden;
         }
 
         private void BtnExportUst_Cover_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)

@@ -123,7 +123,6 @@
   <ItemGroup>
     <Resource Include="resources\cevio.png" />
     <Resource Include="resources\H 256.ico" />
-    <Resource Include="resources\vocaloid.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="resources\import.png" />
@@ -141,6 +140,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="resources\white_cover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\vocaloid4.png" />
+    <Resource Include="resources\vocaloid5.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
