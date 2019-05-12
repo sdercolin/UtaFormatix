@@ -790,12 +790,12 @@ namespace UtaFormatix
                 }
                 if (TrackList.Count > 0)
                 {
-                    for (int tracknum = 0; tracknum < TrackList.Count; tracknum++)
+                    for (int trackNum = 0; trackNum < TrackList.Count; trackNum++)
                     {
                         var newTrack = (XmlElement)emptyTrack.Clone();
-                        newTrack.GetElementsByTagName("tNo")[0].FirstChild.Value = (tracknum + 1).ToString();
-                        emptyTrack.GetElementsByTagName("name")[0].FirstChild.Value = TrackList[tracknum].TrackName;
-                        var part = (XmlElement)emptyTrack.GetElementsByTagName("vsPart")[0];
+                        newTrack.GetElementsByTagName("tNo")[0].FirstChild.Value = trackNum.ToString();
+                        newTrack.GetElementsByTagName("name")[0].FirstChild.Value = TrackList[trackNum].TrackName;
+                        var part = (XmlElement)newTrack.GetElementsByTagName("vsPart")[0];
                         int pos = 0;
                         int mes = 0;
                         int nume = 4;
@@ -818,7 +818,7 @@ namespace UtaFormatix
                         part.GetElementsByTagName("t")[0].InnerText = pos.ToString();
                         int partStartTime = pos;
                         int time = 0;
-                        var thisTrack = TrackList[tracknum];
+                        var thisTrack = TrackList[trackNum];
                         var lastNote = (XmlElement)part.GetElementsByTagName("singer")[0];
                         for (int notenum = 0; notenum < thisTrack.NoteList.Count; notenum++)
                         {
@@ -890,7 +890,7 @@ namespace UtaFormatix
                         root.InsertAfter(newTrack, emptyTrack);
                         emptyTrack = newTrack;
                         var newUnit = (XmlElement)emptyUnit.Clone();
-                        newUnit.GetElementsByTagName("tNo")[0].FirstChild.Value = (tracknum + 1).ToString();
+                        newUnit.GetElementsByTagName("tNo")[0].FirstChild.Value = trackNum.ToString();
                         mixer.InsertAfter(newUnit, emptyUnit);
                         emptyUnit = newUnit;
                     }
