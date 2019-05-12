@@ -25,7 +25,7 @@ namespace UtaFormatix
             if (imported)
             {
                 exportingData = new Data(mainData);
-                if (!transformLyrics(Data.UtaFormat.Vsq4))
+                if (!TransformLyrics(Data.UtaFormat.Vsq4))
                 {
                     return;
                 }
@@ -55,7 +55,7 @@ namespace UtaFormatix
             if (imported)
             {
                 exportingData = new Data(mainData);
-                if (!transformLyrics(Data.UtaFormat.Vpr))
+                if (!TransformLyrics(Data.UtaFormat.Vpr))
                 {
                     return;
                 }
@@ -85,7 +85,7 @@ namespace UtaFormatix
             if (imported)
             {
                 exportingData = new Data(mainData);
-                if (!transformLyrics(Data.UtaFormat.Ccs))
+                if (!TransformLyrics(Data.UtaFormat.Ccs))
                 {
                     return;
                 }
@@ -115,7 +115,7 @@ namespace UtaFormatix
             if (imported)
             {
                 exportingData = new Data(mainData);
-                if (!transformLyrics(Data.UtaFormat.Ust))
+                if (!TransformLyrics(Data.UtaFormat.Ust))
                 {
                     return;
                 }
@@ -248,7 +248,7 @@ namespace UtaFormatix
             Droping.Visibility = Visibility.Hidden;
         }
 
-        private bool transformLyrics(Data.UtaFormat toFormat)
+        private bool TransformLyrics(Data.UtaFormat toFormat)
         {
             var changeLyrics = new ChangeLyrics();
             switch (mainData.Lyric.TypeAnalysed)
