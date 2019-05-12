@@ -222,11 +222,13 @@ namespace UtaFormatix
         private void Grid_DragEnter(object sender, System.Windows.DragEventArgs e)
         {
             LayerDropping.Visibility = Visibility.Visible;
+            TextLayerDropping.Visibility = Visibility.Visible;
         }
 
         private void Grid_DragLeave(object sender, System.Windows.DragEventArgs e)
         {
             LayerDropping.Visibility = Visibility.Hidden;
+            TextLayerDropping.Visibility = Visibility.Hidden;
         }
 
         private async void Grid_Drop(object sender, System.Windows.DragEventArgs e)
@@ -240,13 +242,14 @@ namespace UtaFormatix
                 e.Effects = System.Windows.DragDropEffects.None;
             }
             var fileNames = new List<string>();
-            var dropfiles = (System.Array)e.Data.GetData(System.Windows.DataFormats.FileDrop);
-            foreach (var dropfile in dropfiles)
+            var dropFiles = (System.Array)e.Data.GetData(System.Windows.DataFormats.FileDrop);
+            foreach (var dropfile in dropFiles)
             {
                 fileNames.Add(dropfile.ToString());
             }
             mainData = new Data();
             LayerDropping.Visibility = Visibility.Hidden;
+            TextLayerDropping.Visibility = Visibility.Hidden;
             ShowProcessingScreen();
             imported = await mainData.Import(fileNames);
             HideProcessingScreen();
@@ -343,13 +346,13 @@ namespace UtaFormatix
         private void ShowProcessingScreen()
         {
             LayerProcessing.Visibility = Visibility.Visible;
-            LabelProcessing.Visibility = Visibility.Visible;
+            TextLayerProcessing.Visibility = Visibility.Visible;
         }
 
         private void HideProcessingScreen()
         {
             LayerProcessing.Visibility = Visibility.Hidden;
-            LabelProcessing.Visibility = Visibility.Hidden;
+            TextLayerProcessing.Visibility = Visibility.Hidden;
         }
     }
 }

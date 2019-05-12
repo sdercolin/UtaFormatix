@@ -28,8 +28,9 @@
         <Image x:Name="BtnExportCcs" HorizontalAlignment="Left" Height="102" Margin="558,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/cevio.png" Cursor="Hand" MouseEnter="BtnExportCcs_MouseEnter" />
         <Image x:Name="BtnExportCcsCover" HorizontalAlignment="Left" Height="102" Margin="558,30,0,0" VerticalAlignment="Top" Width="102" Source="resources/export.png" MouseUp="ExportCcs" Cursor="Hand" MouseLeave="BtnExportCcs_Cover_MouseLeave" Visibility="Hidden" />
         <Label x:Name="LabelVersion" Content="version" HorizontalAlignment="Right" Margin="0,5,5,0" VerticalAlignment="Top" Foreground="#FF767676" />
-        <Image x:Name="LayerDropping" HorizontalAlignment="Left" Height="198" Margin="0,-14,-6,-17.071" VerticalAlignment="Top" Width="580" Source="resources/white_cover.png" Cursor="Hand" Opacity="0.9" Stretch="None" Visibility="Hidden" />
+        <Rectangle x:Name="LayerDropping" Fill="#FF131313" Opacity="0.95" Visibility="Hidden"/>
+        <Image x:Name="TextLayerDropping" HorizontalAlignment="Center" Height="198" Margin="0,-14,-6,-17.071" VerticalAlignment="Center" Width="580" Source="resources/drop_text.png" Cursor="Hand" Opacity="0.9" Stretch="None" Visibility="Hidden" />
         <Rectangle x:Name="LayerProcessing" Fill="#FF131313" Opacity="0.95" Visibility="Hidden"/>
-        <Label x:Name="LabelProcessing" Content="Processing..." Foreground="#FF8B8B8B" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"/>
+        <Image x:Name="TextLayerProcessing" HorizontalAlignment="Center" Height="198" Margin="0,-14,-6,-17.071" VerticalAlignment="Center" Width="580" Source="resources/processing_text.png" Cursor="Hand" Opacity="0.9" Stretch="None" Visibility="Hidden" />
     </Grid>
 </Window>

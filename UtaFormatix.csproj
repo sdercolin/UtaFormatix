@@ -156,9 +156,6 @@
     <Resource Include="resources\import3.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\white_cover.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="resources\vocaloid4.png" />
     <Resource Include="resources\vocaloid5.png" />
   </ItemGroup>
@@ -168,6 +165,10 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\drop_text.png" />
+    <Resource Include="resources\processing_text.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
