@@ -794,8 +794,8 @@ namespace UtaFormatix
                     {
                         var newTrack = (XmlElement)emptyTrack.Clone();
                         newTrack.GetElementsByTagName("tNo")[0].FirstChild.Value = trackNum.ToString();
-                        newTrack.GetElementsByTagName("name")[0].FirstChild.Value = TrackList[trackNum].TrackName;
-                        var part = (XmlElement)newTrack.GetElementsByTagName("vsPart")[0];
+                        emptyTrack.GetElementsByTagName("name")[0].FirstChild.Value = TrackList[trackNum].TrackName;
+                        var part = (XmlElement)emptyTrack.GetElementsByTagName("vsPart")[0];
                         int pos = 0;
                         int mes = 0;
                         int nume = 4;
