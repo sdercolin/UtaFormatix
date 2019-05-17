@@ -793,7 +793,7 @@ namespace UtaFormatix
                     for (int trackNum = 0; trackNum < TrackList.Count; trackNum++)
                     {
                         var newTrack = (XmlElement)emptyTrack.Clone();
-                        newTrack.GetElementsByTagName("tNo")[0].FirstChild.Value = trackNum.ToString();
+                        newTrack.GetElementsByTagName("tNo")[0].FirstChild.Value = (trackNum + 1).ToString();
                         emptyTrack.GetElementsByTagName("name")[0].FirstChild.Value = TrackList[trackNum].TrackName;
                         var part = (XmlElement)emptyTrack.GetElementsByTagName("vsPart")[0];
                         int pos = 0;
@@ -890,7 +890,7 @@ namespace UtaFormatix
                         root.InsertAfter(newTrack, emptyTrack);
                         emptyTrack = newTrack;
                         var newUnit = (XmlElement)emptyUnit.Clone();
-                        newUnit.GetElementsByTagName("tNo")[0].FirstChild.Value = trackNum.ToString();
+                        newUnit.GetElementsByTagName("tNo")[0].FirstChild.Value = (trackNum + 1).ToString();
                         mixer.InsertAfter(newUnit, emptyUnit);
                         emptyUnit = newUnit;
                     }
