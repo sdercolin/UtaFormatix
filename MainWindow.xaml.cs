@@ -126,7 +126,7 @@ namespace UtaFormatix
                 selectFolder.SelectedPath = exportingData.Files[0].Replace(System.IO.Path.GetFileName(exportingData.Files[0]), "");
                 if (selectFolder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    await ProcessExport(Data.UtaFormat.Vsq4, selectFolder.SelectedPath);
+                    await ProcessExport(Data.UtaFormat.Ust, selectFolder.SelectedPath);
                 }
                 exportingData = null;
             }
