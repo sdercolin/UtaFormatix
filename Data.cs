@@ -554,6 +554,11 @@ namespace UtaFormatix
                                     newNote.NoteKey = Convert.ToInt32(buffer.Substring(8, buffer.Length - 8));
                                 }
                             }
+                            if (isNoteValid)
+                            {
+                                newTrack.NoteList.Add(newNote);
+                                noteNum++;
+                            }
                         }
                     }
                     if (!isValid)
